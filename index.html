@@ -1,18 +1,309 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anarchrist Fanzine</title>
-    <link rel="stylesheet" href="./css/style-home.css">
+    <title>Infográfico: A Anatomia do Punk DIY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Anarchic Sunset -->
+    <!-- Narrative & Structure Plan: O infográfico segue uma narrativa linear para contar a história do punk DIY. Começa com um gancho ("O Ethos") para estabelecer a filosofia. Segue para "O Arsenal Criativo" para mostrar as ferramentas e técnicas. "A Linha do Tempo da Anarquia" mostra a evolução cronológica. "O Levante Global" demonstra o alcance geográfico. Finalmente, "O Paradoxo e o Legado" usa gráficos para analisar a produção e concluir a história. Esta estrutura transforma o relatório denso numa história visual coesa e fácil de seguir. -->
+    <!-- Visualization & Content Choices: 1. Ethos DIY -> Informar -> Fluxograma simples -> Mostrar a rejeição do sistema corporativo vs. o caminho DIY -> HTML/CSS. 2. Técnicas Visuais -> Organizar -> Grelha de ícones -> Apresentar cada técnica de forma clara e segmentada -> HTML/CSS + Unicode. 3. Lançamentos chave -> Mostrar Mudança -> Linha do tempo horizontal -> Visualizar a concentração de atividade criativa ao longo do tempo -> HTML/CSS. 4. Cenas Globais -> Comparar -> Grelha de cartões -> Comparar o impacto do DIY em diferentes regiões sem a complexidade de um mapa -> HTML/CSS. 5. Análise de Produção -> Comparar/Informar -> Gráfico de Donut e Gráfico de Barras -> Quantificar a prevalência de técnicas DIY e a frequência de lançamentos ao longo dos anos -> Chart.js/Canvas. CONFIRMATION: NO SVG, NO Mermaid JS. -->
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #1a1a1a;
+            color: #EDE574;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Special Elite', cursive;
+        }
+        .bg-punk-yellow { background-color: #F9D423; }
+        .bg-punk-orange { background-color: #FC913A; }
+        .bg-punk-red { background-color: #FF4E50; }
+        .text-punk-black { color: #1a1a1a; }
+        .text-punk-yellow { color: #F9D423; }
+        .text-punk-orange { color: #FC913A; }
+        .text-punk-red { color: #FF4E50; }
+        .border-punk-yellow { border-color: #F9D423; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: #FC913A;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: calc(100% + 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: #F9D423;
+            border-radius: 50%;
+            border: 2px solid #FC913A;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <div id="homeContainer">
-        <a id="homeAnchor" class="geo" href="#">ENTRAR</a>
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-12 md:my-16">
+            <h1 class="text-5xl md:text-7xl font-bold text-punk-red drop-shadow-lg">A ANATOMIA DO PUNK DIY</h1>
+            <p class="text-lg md:text-xl mt-4 text-punk-yellow">Como a necessidade, a atitude e uma fotocopiadora criaram uma revolução visual (1976-1987)</p>
+        </header>
+
+        <section id="ethos" class="my-16 md:my-24">
+            <h2 class="text-4xl font-bold text-center mb-12">O Ethos: Faça Você Mesmo ou Morra</h2>
+            <p class="max-w-3xl mx-auto text-center mb-12">Nos anos 70, a indústria musical era um monolito corporativo. O Punk respondeu com uma filosofia radical: se não pode se juntar a eles, vença-os criando o seu próprio sistema. O "Do It Yourself" não era uma escolha, era uma declaração de guerra ideológica contra a produção polida e a dependência comercial.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-punk-yellow text-punk-black p-6 rounded-lg shadow-lg border-4 border-punk-orange">
+                    <h3 class="text-2xl font-bold text-center mb-4">O Caminho Corporativo (Rejeitado)</h3>
+                    <ul class="space-y-2 text-center">
+                        <li><span>&#128176;</span> Grandes Orçamentos</li>
+                        <li><span>&#129309;</span> Contratos Complexos</li>
+                        <li><span>&#128247;</span> Fotógrafos Profissionais</li>
+                        <li><span>&#128188;</span> Controlo da Gravadora</li>
+                        <li class="font-bold text-punk-red text-2xl mt-4">&darr;</li>
+                        <li>Produto Polido e Impessoal</li>
+                    </ul>
+                </div>
+                <div class="bg-punk-red text-punk-black p-6 rounded-lg shadow-lg border-4 border-punk-yellow">
+                    <h3 class="text-2xl font-bold text-center mb-4">O Caminho DIY (Abraçado)</h3>
+                    <ul class="space-y-2 text-center">
+                        <li><span>&#✂️</span> Tesoura e Cola</li>
+                        <li><span>&#128438;</span> Máquina de Escrever</li>
+                        <li><span>&#128437;</span> Fotocopiadora</li>
+                        <li><span>&#128170;</span> Controlo Total do Artista</li>
+                        <li class="font-bold text-punk-yellow text-2xl mt-4">&darr;</li>
+                        <li>Expressão Crua e Autêntica</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="my-16 md:my-24">
+            <h2 class="text-4xl font-bold text-center mb-12">O Arsenal Criativo</h2>
+            <p class="max-w-3xl mx-auto text-center mb-12">A estética punk nasceu da limitação. Com ferramentas simples e acessíveis, os artistas criaram uma linguagem visual que era imediata, barata e infinitamente replicável. Estas não eram apenas técnicas; eram armas na democratização do design.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-5xl mb-2">✂️</div>
+                    <h4 class="font-bold">Colagem</h4>
+                    <p class="text-sm">Recortar e subverter a cultura de massa.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-5xl mb-2">📠</div>
+                    <h4 class="font-bold">Xerox</h4>
+                    <p class="text-sm">A espinha dorsal da produção de zines.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-5xl mb-2">✍️</div>
+                    <h4 class="font-bold">Texto Manual</h4>
+                    <p class="text-sm">Caligrafia e letras de resgate.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-5xl mb-2">📦</div>
+                    <h4 class="font-bold">Materiais Inusitados</h4>
+                    <p class="text-sm">Sacos de papel, cartão, o que estivesse à mão.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <div class="text-5xl mb-2">🎨</div>
+                    <h4 class="font-bold">Serigrafia</h4>
+                    <p class="text-sm">Impressão artesanal para pequenas tiragens.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="timeline" class="my-16 md:my-24">
+            <h2 class="text-4xl font-bold text-center mb-16">A Linha do Tempo da Anarquia Visual</h2>
+            <p class="max-w-3xl mx-auto text-center mb-16">De 1976 a 1987, a estética DIY explodiu, com fanzines e capas de discos a definirem o visual de uma geração. O gráfico de barras abaixo mostra o número de lançamentos DIY notáveis por ano, com base nos exemplos do relatório, ilustrando o pico de atividade no final dos anos 70.</p>
+            <div class="chart-container mb-16">
+                <canvas id="releasesByYearChart"></canvas>
+            </div>
+        </section>
+
+        <section id="global" class="my-16 md:my-24">
+            <h2 class="text-4xl font-bold text-center mb-12">O Levante Global</h2>
+            <p class="max-w-3xl mx-auto text-center mb-12">A filosofia DIY não conhecia fronteiras. De Londres a Washington D.C., de Berlim a São Paulo, a mesma linguagem visual de colagem e crueza foi adaptada para expressar a rebelião local, provando o apelo universal da autonomia criativa.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="border-2 border-punk-yellow p-6 rounded-lg text-center">
+                    <h3 class="text-2xl font-bold text-punk-yellow">Reino Unido</h3>
+                    <p class="mt-2">O berço dos fanzines como 'Sniffin' Glue' e da transparência de produção dos Buzzcocks.</p>
+                </div>
+                <div class="border-2 border-punk-orange p-6 rounded-lg text-center">
+                    <h3 class="text-2xl font-bold text-punk-orange">EUA (Washington D.C.)</h3>
+                    <p class="mt-2">Cena hardcore focada na total independência, documentada em 'Salad Days'.</p>
+                </div>
+                <div class="border-2 border-punk-red p-6 rounded-lg text-center">
+                    <h3 class="text-2xl font-bold text-punk-red">Alemanha</h3>
+                    <p class="mt-2">Construção de "espaços, selos e oficinas" com paixão e poucos recursos.</p>
+                </div>
+                <div class="border-2 border-punk-yellow p-6 rounded-lg text-center">
+                    <h3 class="text-2xl font-bold text-punk-yellow">Brasil (São Paulo)</h3>
+                    <p class="mt-2">Adoção da "estética suja" e da colagem por bandas como Cólera e Ratos de Porão.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="legacy" class="my-16 md:my-24">
+            <h2 class="text-4xl font-bold text-center mb-12">O Paradoxo e o Legado</h2>
+            <p class="max-w-3xl mx-auto text-center mb-12">A maior força do DIY era também a sua fraqueza: a autenticidade artesanal lutava contra a necessidade de uma distribuição mais ampla. O gráfico abaixo mostra a distribuição das principais técnicas DIY nos exemplos notáveis, destacando a predominância de métodos de baixo custo e materiais alternativos.</p>
+            <div class="chart-container">
+                <canvas id="techniquesChart"></canvas>
+            </div>
+            <p class="max-w-3xl mx-auto text-center mt-12">Apesar da tensão com o comercialismo, o legado é inegável. O punk "desqualificou" o design, provando que uma comunicação visual poderosa não requer formação ou ferramentas caras. Inspirou gerações de artistas a valorizar a expressão crua, deixando uma marca indelével na cultura visual que perdura até hoje.</p>
+        </section>
+
     </div>
 
-    <script src="./js/transition.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wrapLabel = (label) => {
+                const maxLength = 16;
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                let currentLine = '';
+                const lines = [];
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            const techniquesData = {
+                labels: ['Materiais Alternativos', 'Serigrafia', 'Fotocópia/Xerox', 'Detalhes de Produção', 'Colagem/Estética Crua'],
+                datasets: [{
+                    label: 'Uso de Técnicas DIY',
+                    data: [6, 4, 4, 2, 2],
+                    backgroundColor: [
+                        '#FF4E50',
+                        '#FC913A',
+                        '#F9D423',
+                        '#EDE574',
+                        '#E1F5C4'
+                    ],
+                    borderColor: '#1a1a1a',
+                    borderWidth: 2
+                }]
+            };
+
+            const ctxTechniques = document.getElementById('techniquesChart').getContext('2d');
+            new Chart(ctxTechniques, {
+                type: 'doughnut',
+                data: techniquesData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#EDE574',
+                                font: {
+                                    family: "'Roboto Mono', monospace"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const releasesData = {
+                labels: ['1976', '1977', '1978', '1979', '1980', '1981', '1982', '1985', '1987'],
+                datasets: [{
+                    label: 'Lançamentos DIY Notáveis',
+                    data: [2, 5, 1, 6, 4, 1, 2, 1, 1],
+                    backgroundColor: '#FC913A',
+                    borderColor: '#F9D423',
+                    borderWidth: 2
+                }]
+            };
+
+            const ctxReleases = document.getElementById('releasesByYearChart').getContext('2d');
+            new Chart(ctxReleases, {
+                type: 'bar',
+                data: releasesData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#EDE574',
+                                stepSize: 1
+                            },
+                            grid: {
+                                color: 'rgba(237, 229, 116, 0.2)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#EDE574'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
